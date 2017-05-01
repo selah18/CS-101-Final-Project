@@ -5,7 +5,7 @@ hear the current time and decide and to hear the menu of the day and also if the
 """
 
 
-import pyttsx, datetime
+import pyttsx, datetime, os
 
 def say(s):
         engine = pyttsx.init()
@@ -50,9 +50,7 @@ if y==0:
         print "for SNACKS press 13"
         say('for DINNER 14')
         print "for DINNER 14"
-        import os
-	import sys
-	import json
+        
 	x=input('please choose: ')
 	menu_command_names = [11,12,13,14]
 	if x in menu_command_names:
@@ -61,14 +59,14 @@ if y==0:
 	                        # Get current day to decide which day's menu needs to be sent
 	        from datetime import datetime, timedelta
 	        my_time = datetime.utcnow() + timedelta(hours=5) + timedelta(minutes=30)
-	        my_day = my_time.strftime('%A')# Start generating return message:
+	        my_day = my_time.strftime('%A')# next line Starts generating return message:
 	        return_message = "you requested on " + my_time.strftime('%A, %H:%M') + ".\nHere's the menu you asked for today.\n"# Get day number -> 1 for Monday, 7 for Sunday
 	        days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 	        for my_day_number in range(len(days)):
 	                if my_day == days[my_day_number]:
 	                        break
 	        my_day_number += 1
-	        # Do it meal by meal - simple
+	        # meal by meal 
 	        if x in menu_command_names:
 	                        #meal_asked = x
 
@@ -201,14 +199,16 @@ say('if you have any concern please leave a voice note for 10 seconds by pressin
 x=input("press 21 to record: ")
 if x==21:
         import pyaudio
+        import os
         import wave
-        import sys      
+        import sys
+        index = 0
         CHUNK = 1024
         FORMAT = pyaudio.paInt16
         CHANNELS = 2
         RATE = 44100
         RECORD_SECONDS = 10
-        WAVE_OUTPUT_FILENAME = "suggestion.swav"
+        WAVE_OUTPUT_FILENAME = "suggestion" + str(index) + ".swav"
 
         if sys.platform == 'darwin':
             CHANNELS = 1
@@ -235,6 +235,12 @@ if x==21:
         stream.close()
         p.terminate()
 
+        while True:
+	        if os.path.exists(WAVE_OUTPUT_FILENAME):
+	        	index+=1
+	        	WAVE_OUTPUT_FILENAME = "suggestion" + str(index) + ".swav"
+	        else:
+	        	break
         wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
         wf.setnchannels(CHANNELS)
         wf.setsampwidth(p.get_sample_size(FORMAT))
