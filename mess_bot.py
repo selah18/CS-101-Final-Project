@@ -1,7 +1,8 @@
 """
 This is an app made for the students at Ashoka university that are 
 visually inmpaired to use the token machine for thier meal at the mess and they can also 
-hear the current time and decide and to hear the menu of the day and also if they have any concern they can leave a voice message
+hear the current time and decide and to hear the menu of the day and also if they have any concern they can leave a voice message for 10 seconds
+the software will be used by BRAIL buttons 
 """
 
 
@@ -10,7 +11,7 @@ import pyttsx, datetime, os
 def say(s):
         engine = pyttsx.init()
         rate = engine.getProperty('rate')
-        engine.setProperty('rate', 250)
+        engine.setProperty('rate', 200)
         voices= engine.getProperty('voices')
         #for voice in voices:                                                                                    
         engine.setProperty('voice', 'english-us')
@@ -21,52 +22,63 @@ def say(s):
 
 now = datetime.datetime.now()
 k=datetime.time(now.hour, now.minute)
-say('HELLO THIS IS ASHOKA BOT')
-print"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-print"-----Hello this is Ashoka-bot-----"
-print"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-say('press 0 for menu')
-print "press 0 for menu"
-say('press 1 for breakfast')
-print "press 1 for breakfast"
-say('Press 2 for Lunch')
-print"Press 2 for Lunch"
-say('Press 3 for Snacks')
-print "Press 3 for Snacks"
-say('Press 4 for Dinner')
-print "Press 4 for Dinner"
-say('press 5 to check the current time and select')
-print "press 5 to check the current time and select"
 
-y=input('please choose: ')
+
+say('HELLO THIS IS ASHOKA BOT')
+print"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+print"----- HELLO THIS IS ASHOKA-BOT -----"
+print"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+say('press 0 for menu')
+print "PRESS 0 FOR MENU"
+say('press 1 for breakfast coupon')
+print "PRESS 1 FOR BREAKFAST COUPON"
+say('Press 2 for Lunch coupon')
+print"PRESS 2 FOR LUNCH COUPON"
+say('Press 3 for Snacks coupon')
+print "PRESS 3 FOR SNACKS COUPON"
+say('Press 4 for Dinner coupon')
+print "PRESS 4 FOR DINNER COUPON"
+say('press 5 to check the current time and select')
+print "PRESS 5 TO CHECK THE CURRENT TIME AND SELECT"
+
+print"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+print'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+
+y=input('PLEASE SELECT: ')
+
+print"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+print'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 
 if y==0:
 	
-        say('for breakfast press 11')
-        print "for breakfast press 11"
-        say('for LUNCH press 12')
-        print "for LUNCH press 12'"
-        say('for SNACKS press 13')
-        print "for SNACKS press 13"
-        say('for DINNER 14')
-        print "for DINNER 14"
+        say('for breakfast menu press 11')
+        print "FOR BREAKFAST MENU PRESS 11"
+        say('for LUNCH menu press 12')
+        print "FOR LUNCH MENU PRESS 12"
+        say('for SNACKS menu press 13')
+        print "FOR SNACKS MENU PRESS 13"
+        say('for DINNER menu 14')
+        print "FOR DINNER MENU PRESS 14"
+
+        print"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        print'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
         
-	x=input('please choose: ')
+	x=input('PLEASE SELECT: ')
 	menu_command_names = [11,12,13,14]
 	if x in menu_command_names:
 	        #meal_asked = x
 
-	                        # Get current day to decide which day's menu needs to be sent
+	                        # Get current day to decide which day's menu needs to be sent from the menu.csv file
 	        from datetime import datetime, timedelta
 	        my_time = datetime.utcnow() + timedelta(hours=5) + timedelta(minutes=30)
-	        my_day = my_time.strftime('%A')# next line Starts generating return message:
-	        return_message = "you requested on " + my_time.strftime('%A, %H:%M') + ".\nHere's the menu you asked for today.\n"# Get day number -> 1 for Monday, 7 for Sunday
+	        my_day = my_time.strftime('%A')# next line Starts generating the specific menu:
+	        menu_asked = "you requested on " + my_time.strftime('%A, %H:%M') + ".\nHere's the menu you asked for today.\n"# Get day number -> 1 for Monday, 7 for Sunday
 	        days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 	        for my_day_number in range(len(days)):
 	                if my_day == days[my_day_number]:
 	                        break
 	        my_day_number += 1
-	        # meal by meal 
+	        # it will go meal by meal 
 	        if x in menu_command_names:
 	                        #meal_asked = x
 
@@ -76,7 +88,7 @@ if y==0:
 	                        my_day = my_time.strftime('%A')
 
 	                        # Start generating return message:
-	                        return_message = "The request was received on " + my_time.strftime('%A, %H:%M') + ".\nHere's the menu of your choice for today.\n"
+	                        menu_asked = "The request was received on " + my_time.strftime('%A, %H:%M') + ".\nHere's the menu of your choice for today.\n"
 
 	                        # Get day number -> 1 for Monday, 7 for Sunday
 	                        days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
@@ -152,26 +164,37 @@ if y==0:
 	                                            pass
 	                                        returned_menu += "\n" + type_of_dish + ": " + dish
 
-	                        return_message += returned_menu
+	                        menu_asked += returned_menu
 
-	                        # Finally send the message
-	                        print return_message
-	                        say(return_message)
+	                        # Finally say the menu
+	                        print"~~~~~~~~~~~~~~~~"
+	                        print'~~~~~~~~~~~~~~~~'
+	                        
+	                        print menu_asked
+	                        say(menu_asked)
+	                        
+	                        print"~~~~~~~~~~~~~~~~~"
+	                        print'~~~~~~~~~~~~~~~~~'
+	                        
 	                        say('please select')
-	                        y=input('please choose: ')
+
+	                        y=input('PLEASE SELECT: ')
+	                        
+	                        print"~~~~~~~~~~~~~~~~~~~~"
+	                        print'~~~~~~~~~~~~~~~~~~~~'
 
 if y==1:
 	say('breakfast selected')
-        print 'breakfast selected'
+        print 'BREAKFAST SELECTED'
 if y==2:
 	say('lunch selected')
-        print "lunch selected"
+        print "LUNCH SELECTED"
 if y==3:
 	say('snacks selected')
-        print'snacks selected'
+        print'SNACKS SELECTED'
 if y==4:
 	say('dinner selected')
-        print "dinner selected"
+        print "DINNER SELECTED"
 if y==5:
         say(' the time is')
         say (k)
@@ -180,23 +203,33 @@ if y==5:
         y=input('please choose: ')
         if y==1:
                 say('breakfast selected')
-                print 'breakfast selected'
+                print 'BREAKFAST SELECTED'
         if y==2:
                 say('lunch selected')
-                print "lunch selected"
+                print "LUNCH SELECTED"
         if y==3:
                 say('snacks selected')
-                print'snacks selected'
+                print'SNACKS SELECTED'
         if y==4:
                 say('dinner selected')
-                print "dinner selected"
+                print "DINNER SELECTED"
+
+                print"~~~~~~~~~~~~~~~~~~"
+                print'~~~~~~~~~~~~~~~~~~'
 
 
-say("Thanks, have a nice meal")
+say("THANKS, HAVE A NICE MEAL!")
+print "THANKS, HAVE A NICE MEAL!"
 
-say('if you have any concern please leave a voice note for 10 seconds by pressing 21 or press any key to end')
+say('IF YOU HAVE ANY CONCERN PLEASE LEAVE A VOICE NOTE FOR 10 SECONDS BY PRESSING 21 OR PRESS ANY KEY TO END')
 
-x=input("press 21 to record: ")
+print"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+print'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+
+x=input("PRESS 21 TO RECORD: ")
+
+print"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+
 if x==21:
         import pyaudio
         import os
@@ -247,9 +280,12 @@ if x==21:
         wf.setframerate(RATE)
         wf.writeframes(b''.join(frames))
         wf.close()
-        say('thank you for the sugesstions')
+        
+        print"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+
+        say('THANK YOU FOR THE SUGESSTIONS :)')
 else:
-        say('thank you')
+        say('THANK YOU')
 
 print"~~~~~~~~~~~~~~~~~~~~~~~"
 print"      THANK YOU"
